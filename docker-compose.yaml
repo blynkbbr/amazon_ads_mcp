@@ -44,15 +44,16 @@ services:
       - HOST=0.0.0.0
       - PORT=9080
       - LOG_LEVEL=INFO
-      - AMAZON_AD_PACKAGES=profiles,accounts-ads-accounts
+      - AMAZON_AD_PACKAGES=profiles,campaign-manage,sponsored-products,sp-suggested-keywords,reporting-version-3,brand-metrics,products-metadata,products-eligibility,tactical-recommendations
       - AMAZON_ADS_TOKEN_PERSIST=true
       - AMAZON_ADS_CACHE_DIR=/app/.cache/amazon-ads-mcp
       # Authentication (configure as needed for your environment)
       # - AUTH_METHOD=openbridge
 
-    # Note: Port 9080 is NOT exposed externally - only accessible via proxy
-    expose:
-      - "9080"
+    # Expose MCP server and OAuth callback to host
+    ports:
+      - "9080:9080"
+      - "8000:8000"
     volumes:
       # Persist downloaded exports/reports
       - downloads:/app/data
